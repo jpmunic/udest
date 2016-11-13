@@ -1,5 +1,8 @@
 import mysql.connector
 import send_to_db
+from os.path import join, dirname
+import json
+
 
 
 def main(config):
@@ -7,6 +10,10 @@ def main(config):
     db = mysql.connector.Connect(**config)
     cursor = db.cursor()
     stmts = ["SELECT * FROM top_cities(cities)"]
+    with open ('top_cities.txt','w') as file:
+	for item in suggestion_list:
+		file.write(str(item))
+		file.write('\n')
 
 if __name__ == '__main__':
 
@@ -21,6 +28,6 @@ if __name__ == '__main__':
         'get_warnings': True,
     }
 
-    out = main(config)
-    print('\n'.join(out))
-    send-to-db.main(config)
+    #out = main(config)
+    #print('\n'.join(out))
+    send_to_db.main(config)

@@ -13,18 +13,19 @@ if(isset($_POST['submit'])){
     $body = $db->real_escape_string($body);
     $body = htmlentities($body);
     $count = str_word_count($body); 
+    $toneanalyze = exec('python freeresponse_totext.py', $toneanalyze);
 
     
     if($body){
-        if($count < 25){
-            echo "Error, under 25 word minimum...";
+        if($count < 100){
+            echo "Error, under 100 word minimum...";
             echo "$count words used";
         }
         else {
             $query = $db->query("INSERT INTO free_response(travel_opinion) VALUES ('$body')");
                 if ($query){
                     echo "Submitted";
-                    
+                    echo "$toneanalyze";
                 } else {
                     echo "Error";
                 }
@@ -172,19 +173,37 @@ if(isset($_POST['submit'])){
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Try it</h2>
-                    <h3 class="section-subheading text-muted">Write a short statement on how you feel about traveling; your travel aspirations, your favorite environments (beach, woods, mountains, etc.), or vacation activities, and we'll tell you your ideal destination!</h3>
+                    <h3 class="section-subheading text-muted">Write a short statement on how you feel about traveling; your travel aspirations, your favorite environments (beach, woods, mountains, etc.), or vacation activities, and we'll tell you your ideal US destination!</h3>
                     <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post">
                    <!-- Text Post -->
-                    <p> 
-                    <label for="body">Your Travel Story: (25 word minimum)</label>
-                    </p>
-                    <textarea name="body" cols=50 rows=10></textarea>
-                    <hr>
-                    <input type="submit" name="submit" value="Submit" />
-                    <hr> 
-                    </form> 
+                        <p> 
+                        <label for="body">Your Travel Story: (100 word minimum)</label>
+                        </p>
+                        <textarea name="body" cols=50 rows=10></textarea>
+                        <hr>
+                        <input type="submit" name="submit" value="Submit" />
+                        <hr> 
+                    </form>
                 </div>
             </div>
+                    <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post">
+                        <p>
+                        <label>My Top 3 Vacation Spots</label>
+                        </p>
+                        <select name="favorite_city">
+                            <?php
+                                $query = $db->query("SELECT * FROM top_cities");
+                                while($row2 = $query->fetch_object()) {
+                                     echo "<option value='".$row->cities."'>".$row->cities."</option>";
+                                }
+                            ?>
+                        </select>
+                        <hr>
+                        <input type="submit" name="submit" value="Submit" />
+                        <hr>   
+                    </form> 
+
+
         </div>
     </section>
 
@@ -233,7 +252,7 @@ if(isset($_POST['submit'])){
                     <div class="team-member">
                     <img src="img/team/fernando.jpg" class="img-responsive img-circle" alt=""> 
                         <h4>Fernando Espinosa</h4>
-                        <p class="text-muted">Front-end design, databases, machine learning</p>
+                        <p class="text-muted">Front-end design, databases, IBM Personality API</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="https://github.com/ferdavid1"><i class="fa fa-github"></i></a>
                             </li>
