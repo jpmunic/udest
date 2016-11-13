@@ -5,7 +5,7 @@
 #Step 1: get the city from the SQL file(getCity)
 #Show the city information
 #   that shows some of the attractions of the city as well.
-#note: we are limiting ourselves to the United States                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+#note: we are limiting ourselves to the United States   
 #Step 2: generate the menu based off of the city they chose
 
 #Begin Code:
@@ -54,7 +54,7 @@ def selectCity(cities):
     
     return 0
 def readCitites():
-    filename = "file.txt"
+    filename = "cities.txt"
     Cities = tuple(open(filename, "r"))
     printCities(Cities)
 def printCitites(cities):
