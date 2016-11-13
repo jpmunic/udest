@@ -30,7 +30,7 @@ for item in json_object["keywords"]:
 			#add the city name to the list
 			keywords[item['text']].append(city_name)
 
-print(keywords)
+#print(keywords)
 
 keyword_file=open('keywords.txt','w')
 

@@ -36,5 +36,3 @@ keyword_file=open('keywords.txt','w')
 
 keyword_file.write(str(keywords))
 
-#for city in keywords['beach']:
-#	print(city)
