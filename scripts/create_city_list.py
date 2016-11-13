@@ -1,6 +1,7 @@
 from os.path import join, dirname
 from watson_developer_cloud import AlchemyLanguageV1
 import ast
+import json
 
 #open the text file for reading only
 with open('keywords.txt', 'r') as f:
@@ -13,9 +14,9 @@ text_input='I want to travel to a place that has gambling, bicycle riding, and s
 
 combined_operations = ['entity', 'keyword']
 json_object=alchemy_language.combined(text_input, extract=combined_operations)
-#full_text=json.dumps(alchemy_language.combined(text_input, extract=combined_operations), indent=2)
-#print(full_text)
-#print(json_object['entities'][0]['type'])
+full_text=json.dumps(alchemy_language.combined(text_input, extract=combined_operations), indent=2)
+print(full_text)
+print(json_object['entities'][0]['type'])
 
 suggestion_list=[]
 
